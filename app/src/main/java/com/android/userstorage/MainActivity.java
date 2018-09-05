@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText firstName;
     private EditText lastName;
+    private EditText email;
     private Button registerButton;
     private DatabaseReference mDatabase;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         firstName= (EditText) findViewById(R.id.firstName);
         lastName = (EditText) findViewById(R.id.lastName);
+        email = (EditText) findViewById(R.id.email);
         registerButton = (Button) findViewById(R.id.registerButton);
         registerButton.setOnClickListener(this);
     }
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void userRegister() {
         String first =  firstName.getText().toString().trim();
         String last =  lastName.getText().toString().trim();
+        String emailStr = email.getText().toString().trim();
         if (TextUtils.isEmpty(first)) {
             // E-mail is empty
             Toast.makeText(this, "Please enter your First Name", Toast.LENGTH_LONG).show();
@@ -49,7 +52,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Stop the function from executing further
             return;
         }
-        BasicUser newPetition = new BasicUser(first, last);
+        if (TextUtils.isEmpty(emailStr)) {
+            // E-mail is empty
+            Toast.makeText(this, "Please enter your Email", Toast.LENGTH_LONG).show();
+
+            // Stop the function from executing further
+            return;
+        }
+        BasicUser newPetition = new BasicUser(first, last, emailStr);
         mDatabase.child("Users").setValue(newPetition);
         Toast.makeText(this, "Your name has been added to the petition", Toast.LENGTH_LONG).show();
         startActivity(new Intent(this, MainActivity.class));
