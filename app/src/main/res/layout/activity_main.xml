@@ -51,7 +51,7 @@
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Register your name to petition!"
+        android:text="Add your name to our petition!"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="1dp" />
